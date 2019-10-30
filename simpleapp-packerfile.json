@@ -1,0 +1,37 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}"
+  },
+  "builders": [
+    {
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-east-1",
+    "source_ami": "ami-d15a75c7",
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "packer-example {{timestamp}}"
+  }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "provision/scripts/apt.sh",
+        "provision/scripts/locale.sh",
+        "provision/scripts/base.sh",
+        "provision/scripts/pip.sh",
+        "provision/scripts/ntp.sh",
+        "provision/scripts/apache.sh",
+        "provision/scripts/app.sh",
+        "provision/scripts/cleanup.sh"
+      ],
+      "environment_vars": [
+        "DEBIAN_FRONTEND=noninteractive"
+      ],
+      "execute_command": "sudo env {{.Vars}} '{{.Path}}'"
+    }
+  ]
+}

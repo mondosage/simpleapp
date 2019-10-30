@@ -1,0 +1,5 @@
+SECRET_KEY = '"PT4+5+9]HFd<+F:jd+Nz6DQ}f`cx2'
+MYSQL_DATABASE_USER = '<your_db_user>'
+MYSQL_DATABASE_PASSWORD = '<your_db_password>' 
+MYSQL_DATABASE_DB = 'users'
+MYSQL_DATABASE_HOST = '<your_db_host>'
